@@ -4,6 +4,7 @@ from app import create_app
 from app.models import Area
 from app.services import AreaService
 from app import db  
+from metodosDePrueba import nuevoArea
 import os
 
 class AppTestCase(unittest.TestCase):
@@ -21,14 +22,14 @@ class AppTestCase(unittest.TestCase):
         self.app_context.pop()
     
     def test_area_creation(self):
-        area = self.__nuevoArea()
+        area = self.nuevoArea()
         self.assertIsNotNone(area)
         self.assertEqual(area.nombre, "Area1")
         self.assertIsNotNone(area.nombre)
     
     #metdos crud
     def test_crear_area(self):
-        area = self.__nuevoArea()
+        area = self.nuevoArea()
         AreaService.crear_area(area)
         self.assertIsNotNone(area)
         self.assertIsNotNone(area.id)
@@ -36,15 +37,15 @@ class AppTestCase(unittest.TestCase):
         self.assertEqual(area.nombre, "Area1")
 
     def test_area_busqueda(self):
-        area = self.__nuevoArea()
+        area = self.nuevoArea()
         AreaService.crear_area(area)
         AreaService.buscar_por_id(area.id)
         self.assertIsNotNone(area)
         self.assertEqual(area.nombre, "Area1")
     
     def test_buscar_areas(self):
-        area1 = self.__nuevoArea()
-        area2 = self.__nuevoArea()
+        area1 = self.nuevoArea()
+        area2 = self.nuevoArea()
         AreaService.crear_area(area1)
         AreaService.crear_area(area2)
         areas = AreaService.buscar_todos()
@@ -52,26 +53,19 @@ class AppTestCase(unittest.TestCase):
         self.assertEqual(len(areas), 2)
 
     def test_actualizar_area(self):
-        area = self.__nuevoArea()
+        area = self.nuevoArea()
         AreaService.crear_area(area)
         area.nombre = "Area2"
         area_actualizado = AreaService.actualizar_area(area.id, area)
         self.assertEqual(area_actualizado.nombre, "Area2")
 
     def test_borrar_area(self):
-        area = self.__nuevoArea()
+        area = self.nuevoArea()
         AreaService.crear_area(area)
         db.session.delete(area)
         db.session.commit()
         area_borrada = AreaService.buscar_por_id(area.id)
         self.assertIsNone(area_borrada)
-
-
-
-    def __nuevoArea(self):
-        area = Area()
-        area.nombre = "Area1"
-        return area
-    
+        
 if __name__ == '__main__':
     unittest.main()

@@ -122,9 +122,6 @@ def tipoDeCargo3():
     tipo_dedicacion.nombre = "Simple2"
     tipo_dedicacion.observacion = "Observacion 2"
     return tipo_dedicacion
-
-
-
 #-----------------------------------------------------------------------------
 # ESPECIALIDAD
 #-----------------------------------------------------------------------------
@@ -141,3 +138,11 @@ def nuevaEspecialidad2():
     especialidad.letra = "b"
     especialidad.observacion = "Observacion 2"
     return especialidad
+
+#-----------------------------------
+# AREA
+#-----------------------------------
+def nuevoArea(self):
+    area = Area()
+    area.nombre = "Area1"
+    return area
